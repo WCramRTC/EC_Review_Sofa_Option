@@ -7,12 +7,44 @@ namespace EC_Review_Sofa_Option
 {
     internal class Program
     {
-        
+        static string[] colors;
+        static int[] softness;
+        static int[] priceRanges;
 
         static void Main(string[] args)
         {
-            GenerateSofaDatabase(20);
+            int size = 20;
+            GenerateSofaDatabase(size);
             DisplaySofaDatabase();
+
+            //Console.WriteLine("Enter a color");
+            //string userColor = Console.ReadLine();
+
+            //Console.WriteLine("Max Softness");
+            //int userSoft = int.Parse(Console.ReadLine());
+
+            //Console.WriteLine("Max Price");
+            //int max = int.Parse(Console.ReadLine());
+
+       
+
+
+            Console.WriteLine("Sofas that fit your criteria");
+
+            for (int i = 0; i < size; i++)
+            {
+                string color = colors[i].ToLower();
+                int soft = softness[i];
+                int price = priceRanges[i];
+
+                if ((color == "red" || color == "blue") && // Red OR Blue
+                (soft >= 1 && soft <= 5) && // Between 1 AND 5
+                (price >= 500 && price <= 1000))
+                {
+                    Console.WriteLine($"{i} - {color} - {soft} - {price}");
+                }// Between 500 AND 1000
+            }
+
 
             // What is the question being asked
 
@@ -94,9 +126,7 @@ namespace EC_Review_Sofa_Option
 
         #region
 
-        static string[] colors;
-        static int[] softness;
-        static int[] priceRanges;
+
         
         public static void DisplaySofaDatabase()
         {
@@ -119,17 +149,26 @@ namespace EC_Review_Sofa_Option
 
         public static void GenerateSofaDatabase(int size)
         {
-            string[] colorSelection = { "Red", "Green", "Blue", "Yellow", "Orange" };
+            string[] colorSelection = { "Red", "Green", "Blue", "Yellow", "Orange", "Purple", "Pink" };
+
             colors = new string[size];
             softness = new int[size];
             priceRanges = new int[size];
+
             Random rand = new Random();
 
-            for (int i = 0; i < size; i++)
+            // rand.Next() - 0 and int.Max
+            // rand.Next(10) - 0 and 9
+            // rand.Next(-5, 30) - -5 to 29
+
+            // rand.Next(5); 0 1 2 3 4
+            for (int i = 0; i < colors.Length; i++)
             {
-                colors[i] = colorSelection[rand.Next(colorSelection.Length - 1)];
+                int chosenColor = rand.Next(colorSelection.Length);
+                // 
+                colors[i] = colorSelection[chosenColor];
                 softness[i] = rand.Next(1, 11);
-                priceRanges[i] = rand.Next(100, 1500);
+                priceRanges[i] = rand.Next(100, 1501);
             }
         } // GenerateSofaDatabase
 
